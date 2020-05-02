@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use App\Contact;
 use Livewire\Component;
 
 class ContactUpdate extends Component
@@ -24,6 +25,26 @@ class ContactUpdate extends Component
         $this->name = $contact['name'];
         $this->phone = $contact['phone'];
         $this->contactId = $contact['id'];
+    }
+
+    public function update()
+    {
+        $this->validate([
+            'name' => 'required|min:3',
+            'phone' => 'required|max:15'
+        ]);
+
+        if ($this->contactId) {
+            $contact = Contact::find($this->contactId);
+            $contact->update([
+                'name' => $this->name,
+                'phone' => $this->phone
+            ]);
+
+            $this->resetInput();
+
+            $this->emit('contactUpdated', $contact);
+        }
     }
 
     private function resetInput()

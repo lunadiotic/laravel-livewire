@@ -20,7 +20,7 @@
                     type="text"
                     name=""
                     id=""
-                    class="form-control @error('name') is-invalid @enderror"
+                    class="form-control @error('phone') is-invalid @enderror"
                     placeholder="Phone">
 
                     @error('phone')
