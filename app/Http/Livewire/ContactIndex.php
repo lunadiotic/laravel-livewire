@@ -4,9 +4,12 @@ namespace App\Http\Livewire;
 
 use App\Contact;
 use Livewire\Component;
+use Livewire\WithPagination;
 
 class ContactIndex extends Component
 {
+    use WithPagination;
+
     public $statusUpdate = false;
 
     protected $listeners = [
@@ -17,7 +20,7 @@ class ContactIndex extends Component
     public function render()
     {
         return view('livewire.contact-index', [
-            'contacts' => Contact::latest()->get()
+            'contacts' => Contact::latest()->paginate(5)
         ]);
     }
 
